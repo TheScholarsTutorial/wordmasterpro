@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WD Master Pro</title>
+    <style>
+        /* Reset margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Full height for body and html */
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Loading message styling */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Iframe styling */
+        #app-frame {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: none; /* Hidden initially */
+        }
+        
+        /* Error message styling */
+        .error {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .error a {
+            color: #1976d2;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        .error a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading message -->
+    <div class="loading" id="loading">
+        Loading WD Master Pro...
+    </div>
+    
+    <!-- Main app iframe -->
+    <iframe 
+        id="app-frame"
+        src="https://script.google.com/macros/s/AKfycbx_y-9RYlspkjfzWSixSU_5JXQdqwVcnntSGStVZBfW4ENEJBEbGfDD1631enrs5SQ/exec"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+        allow="cross-origin-isolated"
+        onload="iframeLoaded()"
+        onerror="iframeError()">
+    </iframe>
+    
+    <!-- Error message -->
+    <div class="error" id="error">
+        <h2>Failed to load application</h2>
+        <p>There was an error loading WD Master Pro. This might be due to browser restrictions.</p>
+        <a href="https://script.google.com/macros/s/AKfycbx_y-9RYlspkjfzWSixSU_5JXQdqwVcnntSGStVZBfW4ENEJBEbGfDD1631enrs5SQ/exec" target="_blank">
+            Open WD Master Pro in a new tab
+        </a>
+    </div>
+
+    <script>
+        // Show loading initially
+        const loading = document.getElementById('loading');
+        const appFrame = document.getElementById('app-frame');
+        const error = document.getElementById('error');
+        
+        // Show the iframe after a short delay
+        setTimeout(() => {
+            appFrame.style.display = 'block';
+        }, 100);
+        
+        // Iframe loaded successfully
+        function iframeLoaded() {
+            loading.style.display = 'none';
+            appFrame.style.display = 'block';
+        }
+        
+        // Iframe failed to load
+        function iframeError() {
+            loading.style.display = 'none';
+            appFrame.style.display = 'none';
+            error.style.display = 'flex';
+        }
+        
+        // Fallback - if iframe doesn't load within 10 seconds
+        setTimeout(() => {
+            if (loading.style.display !== 'none') {
+                iframeError();
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
